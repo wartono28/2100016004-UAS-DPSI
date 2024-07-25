@@ -14,7 +14,7 @@ router.post(
   "/",
   authenticate,
   authorize(["admin"]), // sebagai contoh admin saja
-  upload.single("img"),
+  upload.single("file_materi"),
   async (req, res, next) => {
     try {
       const productData = req.body;
