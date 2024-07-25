@@ -3,7 +3,7 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
 
 cloudinary.config({
-cloud_name: 'Untitled',
+cloud_name: 'dptuxfaxb',
 api_key: "415494336744882",
 api_secret: "BZF81T69x74vwMTIYnd0335M80k",
 });
