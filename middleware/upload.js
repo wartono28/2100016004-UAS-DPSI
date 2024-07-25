@@ -12,7 +12,6 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'uad_dpsi', 
-    format: async (req, file) => 'png',
     public_id: (req, file) => file.originalname.split('.')[0],
   },
 });
