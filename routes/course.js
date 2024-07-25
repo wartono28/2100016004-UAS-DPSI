@@ -25,6 +25,7 @@ router.post(
       const newProduct = await Products.create(productData);
       res.status(201).json(newProduct);
     } catch (err) {
+      res.json(err)
       console.error(err);
       next(err);
     }
