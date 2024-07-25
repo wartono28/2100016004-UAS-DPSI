@@ -19,7 +19,7 @@ router.post(
     try {
       const productData = req.body;
       if (req.file) {
-        productData.img = req.file.path;
+        productData.file_materi = req.file.path;
       }
       res.json(productData);
       const newProduct = await Products.create(productData);
