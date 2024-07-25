@@ -21,7 +21,7 @@ router.post(
       if (req.file) {
         productData.file_materi = req.file.path;
       }
-      const newProduct = await Product.create(courstData);
+      const newProduct = await Products.create(productData);
       res.status(201).json(newProduct);
     } catch (err) {
       res.json(err)
