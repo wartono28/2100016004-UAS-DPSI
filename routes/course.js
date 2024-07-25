@@ -21,7 +21,6 @@ router.post(
       if (req.file) {
         productData.file_materi = req.file.path;
       }
-      res.json(productData);
       const newProduct = await Products.create(productData);
       res.status(201).json(newProduct);
     } catch (err) {
@@ -69,7 +68,7 @@ router.put(
           }
         }
         if (req.file) {
-          product.img = req.file.path;
+        productData.file_materi = req.file.path;
         }
         await product.save();
         res.json(product);
