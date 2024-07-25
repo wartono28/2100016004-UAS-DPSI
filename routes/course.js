@@ -60,7 +60,7 @@ router.put(
   upload.single("file_materi"),
   async (req, res, next) => {
     try {
-      const product = await Course.findByPk(req.params.id);
+      const course = await Course.findByPk(req.params.id);
       if (course) {
         for (const key in req.body) {
           if (req.body.hasOwnProperty(key)) {
@@ -87,7 +87,7 @@ router.delete(
   authorize(["admin"]),
   async (req, res, next) => {
     try {
-      const product = await Course.findByPk(req.params.id);
+      const course = await Course.findByPk(req.params.id);
       if (course) {
         await course.destroy();
         res.json({ message: "Course deleted" });
