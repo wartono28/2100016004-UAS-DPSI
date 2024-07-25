@@ -21,7 +21,7 @@ router.post(
       if (req.file) {
         productData.img = req.file.path;
       }
-      console.log(productData);
+      res.json(productData);
       const newProduct = await Products.create(productData);
       res.status(201).json(newProduct);
     } catch (err) {
