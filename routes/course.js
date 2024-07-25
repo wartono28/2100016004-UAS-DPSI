@@ -57,7 +57,7 @@ router.put(
   "/:id",
   authenticate,
   authorize(["admin"]),
-  upload.single("img"),
+  upload.single("file_materi"),
   async (req, res, next) => {
     try {
       const product = await Products.findByPk(req.params.id);
