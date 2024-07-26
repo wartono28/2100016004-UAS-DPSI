@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Products = require("../models/products");
+const Course = require("../models/course");
 const { authenticate, authorize } = require("../middleware/auth");
 const upload = require("../middleware/upload");
 // Endpoint untuk menambahkan produk baru
@@ -17,12 +17,12 @@ router.post(
   upload.single("file_materi"),
   async (req, res, next) => {
     try {
-      const productData = req.body;
+      const courseData = req.body;
       if (req.file) {
-        productData.file_materi = req.file.path;
+        courseData.file_materi = req.file.path;
       }
-      const newProduct = await Products.create(productData);
-      res.status(201).json(newProduct);
+      const newCourse = await Course.create(courseData);
+      res.status(201).json(newCourse);
     } catch (err) {
       res.json(err)
       console.error(err);
@@ -30,29 +30,29 @@ router.post(
     }
   }
 );
-// Endpoint untuk menampilkan semua product
+// Endpoint untuk menampilkan semua course
 router.get("/", authenticate, async (req, res, next) => {
   try {
-    const products = await Products.findAll();
-    res.json(products);
+    const Course = await Course.findAll();
+    res.json(Course);
   } catch (err) {
     next(err);
   }
 });
-// Endpoint untuk menampilkan product berdasarkan ID
+// Endpoint untuk menampilkan course berdasarkan ID
 router.get("/:id", authenticate, async (req, res, next) => {
   try {
-    const product = await Products.findByPk(req.params.id);
-    if (product) {
-      res.json(product);
+    const course = await Course.findByPk(req.params.id);
+    if (course) {
+      res.json(course);
     } else {
-      res.status(404).json({ message: "Product not found" });
+      res.status(404).json({ message: "course not found" });
     }
   } catch (err) {
     next(err);
   }
 });
-// Endpoint untuk memperbarui product berdasarkan ID
+// Endpoint untuk memperbarui course berdasarkan ID
 router.put(
   "/:id",
   authenticate,
@@ -60,39 +60,39 @@ router.put(
   upload.single("file_materi"),
   async (req, res, next) => {
     try {
-      const product = await Products.findByPk(req.params.id);
-      if (product) {
+      const course = await Course.findByPk(req.params.id);
+      if (course) {
         for (const key in req.body) {
           if (req.body.hasOwnProperty(key)) {
-            product[key] = req.body[key];
+            course[key] = req.body[key];
           }
         }
         if (req.file) {
-        productData.file_materi = req.file.path;
+        courseData.file_materi = req.file.path;
         }
-        await product.save();
-        res.json(product);
+        await course.save();
+        res.json(course);
       } else {
-        res.status(404).json({ message: "Product not found" });
+        res.status(404).json({ message: "course not found" });
       }
     } catch (err) {
       next(err);
     }
   }
 );
-// Endpoint untuk menghapus product berdasarkan ID
+// Endpoint untuk menghapus course berdasarkan ID
 router.delete(
   "/:id",
   authenticate,
   authorize(["admin"]),
   async (req, res, next) => {
     try {
-      const product = await Products.findByPk(req.params.id);
-      if (product) {
-        await product.destroy();
-        res.json({ message: "Product deleted" });
+      const course = await Course.findByPk(req.params.id);
+      if (course) {
+        await course.destroy();
+        res.json({ message: "course deleted" });
       } else {
-        res.status(404).json({ message: "Product not found" });
+        res.status(404).json({ message: "course not found" });
       }
     } catch (err) {
       next(err);

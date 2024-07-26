@@ -14,12 +14,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static("uploads"));
 
-app.get("/", (req, res) => {
-  console.log("Hallo");
-});
+
 
 app.use("/course", courseRouter);
 app.use("/auth", authRouter);
+
+app.all("*", (req, res) => {
+  console.log("Hallo Server");
+});
 
 app.listen(3001, async () => {
   await sequelize
